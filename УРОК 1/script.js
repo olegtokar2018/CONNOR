@@ -14,9 +14,9 @@ console.log(money);
 let appData = {
     budjet: money, //бюджет (передаем сюда переменную из п.2)
     timeData, //данные времени - timeData (передаем сюда переменную из п.2)
-    expenses, // объект с обязательными расходами - expenses (смотри пункт 4)
-    optionalExpenses: null, //объект с необязательными расходами - optionalExpenses (оставляем пока пустым) 
-    income: null, //массив данных с доп. доходом - income (оставляем пока пустым)
-    savings: false //свойство savings (выставляем его как false)
+    expenses: {}, // объект с обязательными расходами - expenses (смотри пункт 4)
+    optionalExpenses: {}, //объект с необязательными расходами - optionalExpenses (оставляем пока пустым) 
+    income: [], //массив данных с доп. доходом - income (оставляем пока пустым)
+    savings: true //свойство savings (выставляем его как false)
 };
 appData.expenses['questionTwo'] = questionOne;
