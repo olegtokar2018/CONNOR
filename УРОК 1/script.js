@@ -1,5 +1,5 @@
-let budjet = prompt("Ваш бюджет на месяц");
-let timeData = prompt("Введите дату в формате YYYY-MM-DD");
+let budjet = prompt("Ваш бюджет на месяц"); //Первая будет спрашивать "Ваш бюджет на месяц?"
+let timeData = prompt("Введите дату в формате YYYY-MM-DD"); //Вторая "Введите дату в формате YYYY-MM-DD"
 let questionOne = prompt("Введите обязательную статью расходов в этом месяце");
 let questionTwo = prompt("Во сколько обойдется?");
 var expenses = questionTwo;
