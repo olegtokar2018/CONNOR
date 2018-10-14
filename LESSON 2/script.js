@@ -13,39 +13,20 @@ let appData = {
     savings: false //свойство savings (выставляем его как false)
 };
 
-let i = 0;
 //      ЦИКЛ    FOR   - 1й вариант
+
 for (let i = 0; i < 2; i++) {
     let a = prompt("Введите обязательную статью расходов в этом месяце", 'Ремонт автомобиля');
     let b = prompt("Во сколько обойдется?", '5000');
-}
 
-//     ЦИКЛ     VHILE   - 2й вариант
-// while (i < 2) {
-//     let a = prompt("Введите обязательную статью расходов в этом месяце", '');
-//     let b = prompt("Во сколько обойдется?", '');
-//     i++;
-// }
-
-//      ЦИКЛ    DO WHILE   - 3й вариант
-// let i = 0;
-// do {
-//   let a = prompt("Введите обязательную статью расходов в этом месяце", '');
-//   let b = prompt("Во сколько обойдется?", '');
-//   i++;
-
-
-if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null &&
-    a != '' && b != '' && a.length < 50) {
-    console.log("done");
-    appData.expenses[a] = b;
-    }
-    else {
+    if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null &&
+        a != '' && b != '' && a.length < 50) {
+        console.log("done");
+        appData.expenses[a] = b;
+    } else {
         i = i - 1;
     }
-
-appData.moneyPerDay = appData.budget / 30;
-alert("Ежедневный бюджет: " + appData.moneyPerDay);
+}
 
 if (appData.moneyPerDay < 100) {
     console.log("Минимальный уровень достатка");
@@ -56,3 +37,38 @@ if (appData.moneyPerDay < 100) {
 } else {
     console.log("Произошла ошибка");
 }
+
+//     ЦИКЛ     VHILE   - 2й вариант
+
+// let i = 0;
+// while (i < 2) {
+//     let a = prompt("Введите обязательную статью расходов в этом месяце", '');
+//     let b = prompt("Во сколько обойдется?", '');
+
+//     if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null &&
+//         a != '' && b != '' && a.length < 50) {
+//         console.log("done");
+//         appData.expenses[a] = b;
+//     } else {
+//         i = i - 1;
+//     }
+//     i++;
+// }
+
+
+
+//      ЦИКЛ    DO WHILE   - 3й вариант
+
+// let i = 0;
+// do {
+//     let a = prompt("Введите обязательную статью расходов в этом месяце", '');
+//     let b = prompt("Во сколько обойдется?", '');
+//     if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null &&
+//         a != '' && b != '' && a.length < 50) {
+//         console.log("done");
+//         appData.expenses[a] = b;
+//     } else {
+//         i = i - 1;
+//     }
+//     i++;
+// } while (i < 2);
