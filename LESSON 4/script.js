@@ -1,4 +1,4 @@
-//   урок 4 (16.10.2018)
+//   урок 4 (18.10.2018)
 
 let money, time;
 
@@ -55,7 +55,6 @@ let appData = {
 
             appData.monthIncome = save / 100 / 12 * percent;
             alert("Доход в мtсяц с вашего депозита: " + appData.monthIncome);
-
         }
     },
     chooseOptExpenses: function () {
@@ -66,25 +65,29 @@ let appData = {
                 console.log('done');
                 appData.optionalExpenses[i + 1] = a;
             }
-
         }
     },
     chooseIncome: function () {
-        let items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", '');
-
         for (i = 0; i < 1; i++) {
+            let items = prompt("Что принесет дополнительный доход? (Перечислите через запятую + пробел)", '');
+
             if ((typeof (items)) === 'string' && (items) != null && items != '') {
                 appData.income = items.split(', ');
-                appData.income.push(prompt('Может что-то еще?'));
-                appData.income.sort();
-                appData.income.forEach(function (items, i, arr)) {
-                    alert('Способы дополнительного заработка:' + i + ': ' + items + '(массив: ' + arr + ')');
-                }
             } else {
-                i = i - 1;
+                i = i--;
                 items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", '');
             }
+            appData.income.push(prompt('Может что-то еще?'));
+            appData.income.sort();
         }
+        appData.income.forEach(function (item, i, arr) {
+            console.log('Способы дополнительного заработка:' + i + ': ' + item + '(массив: ' + arr + ')');
+        })
     }
-
 };
+
+function getAppData() {
+    for (let key in appData) {
+        alert("Наша программа включает в себя данные : " + key);
+    }
+}
