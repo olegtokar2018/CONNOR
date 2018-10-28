@@ -23,11 +23,16 @@ let startbtn = document.getElementById('start'), //Получить кнопку
 
 
 //   урок 6 (25.10.2018)
+//   исправленный вариант (27.10.2018)
 
 
 
 
-let money, time;
+let sum = 0,
+    money,
+    time;
+
+countBudgetBtn.disabled = true;
 
 startbtn.addEventListener('click', function () {
 
@@ -43,20 +48,34 @@ startbtn.addEventListener('click', function () {
     yearValue.value = new Date(Date.parse(time)).getFullYear();
     monthValue.value = new Date(Date.parse(time)).getMonth() + 1;
     DayValue.value = new Date(Date.parse(time)).getDate();
-
+    countBudgetBtn.disabled = false;
 });
 
 
+expensesBtn.disabled = true;
+
+for (let i = 0; i < expensesItem.length; i++) {
+    expensesItem[i].addEventListener('input', function () {
+        for (let j = 0; j < expensesItem.length; j++) {
+            if (expensesItem[j].value != '') {
+                expensesBtn.disabled = false;
+            } else {
+                expensesBtn.disabled = true;
+            }
+        }
+    });
+}
+
 expensesBtn.addEventListener('click', function () {
-    let sum = 0;
+    // let sum = 0;
 
     for (let i = 0; i < expensesItem.length; i++) {
         let a = expensesItem[i].value,
             b = expensesItem[++i].value;
 
-        if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null &&
+        if ((typeof (a)) === 'string' && (typeof (b)) === 'string' && (typeof (a)) != null && (typeof (b)) != null &&
             a != '' && b != '' && a.length < 50) {
-            console.log("все верно");
+
             appData.expenses[a] = b;
             sum += +b;
         } else {
@@ -70,20 +89,20 @@ expensesBtn.addEventListener('click', function () {
 optionalExpensesBtn.disabled = true;
 
 optionalExpensesItem[0].addEventListener('input', function () {
-    for (let j = 0; j < optionalExpensesItem.length; j++) {
-        if (optionalExpensesItem[0].value != '') {
-            optionalExpensesBtn.disabled = false;
-        } else {
-            optionalExpensesBtn.disabled = true;
-        }
+
+    if (optionalExpensesItem[0].value != '') {
+        optionalExpensesBtn.disabled = false;
+    } else {
+        optionalExpensesBtn.disabled = true;
     }
+
 });
 
 
 optionalExpensesBtn.addEventListener('click', function () {
     for (let i = 0; i < optionalExpensesItem.length; i++) {
         let opt = optionalExpensesItem[i].value;
-        appData.optionalExpenses[1] = opt;
+        appData.optionalExpenses[i] = opt;
         optionalexpensesvalue.textContent += appData.optionalExpenses[i] + ' ';
     }
 });
@@ -92,7 +111,8 @@ optionalExpensesBtn.addEventListener('click', function () {
 countBudgetBtn.addEventListener('click', function () {
 
     if (appData.budget != undefined) {
-        appData.moneyPerDay = (appData.budget / 30).toFixed();
+
+        appData.moneyPerDay = ((appData.budget -  sum) / 30).toFixed();
         daybudgetvalue.textContent = appData.moneyPerDay;
 
         if (appData.moneyPerDay < 100) {
