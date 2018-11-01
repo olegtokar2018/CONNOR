@@ -96,7 +96,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
             if (t.total <= 0) {
 
-                seconds.textContent = '00'
+                days.textContent = '00';
+                hours.textContent = '00';
+                minutes.textContent = '00';
+                seconds.textContent = '00';
                 clearInterval(timeInterval);
             }
         }
