@@ -92,9 +92,8 @@ window.addEventListener('DOMContentLoaded', function () {
                 seconds.textContent = t.seconds;
             }
         };
-        timeInterval = setInterval(updateClock, 1000);
+        let timeInterval = setInterval(updateClock, 1000);
     };
-
 
     setClock('timer', deadLine);
 
