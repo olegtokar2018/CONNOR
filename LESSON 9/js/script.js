@@ -37,13 +37,22 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Timer
 
-    let deadLine = '2018-11-03';
+    let deadLine = '2018-11-10';
 
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()),
             seconds = Math.floor((t / 1000) % 60),
             minutes = Math.floor((t / 1000 / 60) % 60),
             hours = Math.floor((t / (1000 * 60 * 60)));
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
 
         return {
             'total': t,
@@ -67,6 +76,9 @@ window.addEventListener('DOMContentLoaded', function () {
             seconds.textContent = t.seconds;
 
             if (t.total <= 0) {
+                hours.textContent = '00';
+                minutes.textContent = '00';
+                seconds.textContent = '00';
                 clearInterval(timeInterval);
             }
         }
