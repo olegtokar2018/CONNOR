@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', function () {
     setClock('timer', deadLine);
 
 
-    // Modal 
+    // Modal   --- старый стандарт
 
     // let more = document.querySelector('.more'),
     //     overlay = document.querySelector('.overlay'),
@@ -115,6 +115,8 @@ window.addEventListener('DOMContentLoaded', function () {
     //     more.classList.remove('more-splash');
     //     document.body.style.overflow = '';
     // });
+
+        // Modal   --- новый ES6 стандарт
     const more = document.querySelector('.more'),
         overlay = document.querySelector('.overlay'),
         close = document.querySelector('.popup-close');
@@ -132,7 +134,7 @@ window.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = '';
     });
 
-    // Modal - Узнать подробнее
+    // Modal - Узнать подробнее  - старый стандарт
 
     // let descriptionBtn = document.querySelector(".description-btn"),
     //     descriptionBtnCollection = document.getElementsByClassName("description-btn");
@@ -144,6 +146,8 @@ window.addEventListener('DOMContentLoaded', function () {
     //         document.body.style.overflow = "hidden";
     //     });
     // }
+
+       // Modal - Узнать подробнее  - новый ES6 стандарт
     const descriptionBtn = document.querySelector(".description-btn"),
         descriptionBtnCollection = document.getElementsByClassName("description-btn");
 
@@ -154,4 +158,51 @@ window.addEventListener('DOMContentLoaded', function () {
             document.body.style.overflow = "hidden";
         });
     }
+    // Form    - различные состояния нашего запроса 
+
+    let message = {
+        loading: 'Загрузка...', // 3 разных свойства - 1я когда еще не обработалась 
+        success: 'Спасибо! Скоро мы с вами свяжемся!', // 2е свойство
+        failure: 'Что-то пошло не так...' // 3е свойство
+    };
+
+    let form = document.querySelector('.main-form'), // форма в модальном окне 
+        input = form.getElementsByTagName('input'), // все импуты этой формы... все формы чтобы оповестить пользователя...
+        statusMessage = document.createElement('div'); // создаем новый див на странице 
+
+    statusMessage.classList.add('status');
+
+    form.addEventListener('submit', function (event) {  // обработчик событий - НА ФОРМУ А НЕ БТН!
+        event.preventDefault();  // отменить 
+        form.appendChild(statusMessage);  //  оповестить
+
+        let request = new XMLHttpRequest();   // отправить данные на сервер
+        request.open('POST', 'server.php');  // отправить на сервер и ю рэ эл 
+        // request.setRequestHeader('Content-Type', 'application/x-ww-form-urlencoded');
+        request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        
+        let formData = new FormData(form); // при пом форм дата - все что ответил пользователь в нашей форме
+        let obj = {}; // создаем новый объект куда мы поместим все новые данные 
+        formData.forEach(function (value, key) {
+            obj[key] = value;//ЧИТАЕМЫ ОЛГАРИТМ - все данные кот пользователь ответил
+        });
+        let json = JSON.stringify(obj);// превращает обычные JS  объкчтф в обычный форат
+
+        request.send(json);
+
+
+        request.addEventListener('readystatechange', function () {
+            if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading;
+            } else if (request.readyState === 4 && request.status == 200) {
+                statusMessage.innerHTML = message.success;
+            } else {
+                statusMessage.innerHTML = message.failure;
+            }
+        });
+        for (let i = 0; i < input.length; i++) {
+            input[i].value = '';
+        }
+    });
 });
+
