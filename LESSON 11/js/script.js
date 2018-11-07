@@ -116,7 +116,7 @@ window.addEventListener('DOMContentLoaded', function () {
     //     document.body.style.overflow = '';
     // });
 
-        // Modal   --- новый ES6 стандарт
+    // Modal   --- новый ES6 стандарт
     const more = document.querySelector('.more'),
         overlay = document.querySelector('.overlay'),
         close = document.querySelector('.popup-close');
@@ -147,7 +147,7 @@ window.addEventListener('DOMContentLoaded', function () {
     //     });
     // }
 
-       // Modal - Узнать подробнее  - новый ES6 стандарт
+    // Modal - Узнать подробнее  - новый ES6 стандарт
     const descriptionBtn = document.querySelector(".description-btn"),
         descriptionBtnCollection = document.getElementsByClassName("description-btn");
 
@@ -168,25 +168,60 @@ window.addEventListener('DOMContentLoaded', function () {
 
     let form = document.querySelector('.main-form'), // форма в модальном окне 
         input = form.getElementsByTagName('input'), // все импуты этой формы... все формы чтобы оповестить пользователя...
-        statusMessage = document.createElement('div'); // создаем новый див на странице 
+        statusMessage = document.createElement('div'), // создаем новый див на странице 
+        btnFormTwo = document.querySelector('#form'); // контакт форма
 
     statusMessage.classList.add('status');
 
-    form.addEventListener('submit', function (event) {  // обработчик событий - НА ФОРМУ А НЕ БТН!
-        event.preventDefault();  // отменить 
-        form.appendChild(statusMessage);  //  оповестить
+    form.addEventListener('submit', function (event) { // обработчик событий - НА ФОРМУ А НЕ БТН!
+        event.preventDefault(); // отменить 
+        form.appendChild(statusMessage); //  оповестить
 
-        let request = new XMLHttpRequest();   // отправить данные на сервер
-        request.open('POST', 'server.php');  // отправить на сервер и ю рэ эл 
+        let request = new XMLHttpRequest(); // отправить данные на сервер
+        request.open('POST', 'server.php'); // отправить на сервер и ю рэ эл 
         // request.setRequestHeader('Content-Type', 'application/x-ww-form-urlencoded');
         request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        
+
         let formData = new FormData(form); // при пом форм дата - все что ответил пользователь в нашей форме
         let obj = {}; // создаем новый объект куда мы поместим все новые данные 
         formData.forEach(function (value, key) {
-            obj[key] = value;//ЧИТАЕМЫ ОЛГАРИТМ - все данные кот пользователь ответил
+            obj[key] = value; //ЧИТАЕМЫ ОЛГАРИТМ - все данные кот пользователь ответил
         });
-        let json = JSON.stringify(obj);// превращает обычные JS  объкчтф в обычный форат
+        let json = JSON.stringify(obj); // превращает обычные JS  объкчтф в обычный форат
+
+        request.send(json);
+
+
+        request.addEventListener('readystatechange', function () {
+            if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading;
+            } else if (request.readyState === 4 && request.status == 200) {
+                statusMessage.innerHTML = message.success;
+            } else {
+                statusMessage.innerHTML = message.failure;
+            }
+        });
+        for (let i = 0; i < input.length; i++) {
+            input[i].value = '';
+        }
+    });
+
+    // Form 2 -  контактная форма
+
+    btnFormTwo.addEventListener('submit', function (event) {
+        event.preventDefault();
+        btnFormTwo.appendChild(statusMessage);
+
+        let request = new XMLHttpRequest(); 
+        request.open('POST', 'server.php'); 
+        request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+        let formData = new FormData(btnFormTwo); 
+        let obj = {}; 
+        formData.forEach(function (value, key) {
+            obj[key] = value; 
+        });
+        let json = JSON.stringify(obj); 
 
         request.send(json);
 
@@ -205,4 +240,3 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
