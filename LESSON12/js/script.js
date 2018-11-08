@@ -136,13 +136,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
     let form = document.querySelector('.main-form'),
         input = document.getElementsByTagName('input'),
-        // inputPhone = form.getElementsByTagName('input'),
         statusMessage = document.createElement('div'),
-        contactForm = document.querySelector('.form-contact'),
-         btnFormTwo = document.querySelector('#form');
-        // inputContactForm = contactForm.getElementsByTagName('input'),
-        // mainModal = document.querySelector('.popup'),
-        // thanksModal = document.querySelector('.thanks');
+        btnFormTwo = document.querySelector('#form');
     statusMessage.classList.add('status');
 
     function sendForm(elem) {
@@ -163,14 +158,12 @@ window.addEventListener('DOMContentLoaded', function () {
                             if (request.status == 200 && request.status < 300)
                                 resolve();
                         } else {
-                            reject();
+                            reject()
                         }
                     }
 
-                });
+                })
                 request.send(data);
-
-
             }
         }); // End postData
 
@@ -188,7 +181,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
             .then(() => {
                 statusMessage.style.backgroundImage = message.success;
-                
+
             })
             .catch(() => statusMessage.style.backgroundImage = message.failure)
             .then(clearInput)
