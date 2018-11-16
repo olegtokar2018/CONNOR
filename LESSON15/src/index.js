@@ -1,4 +1,4 @@
-window.addEventListener('DOMConentLoaded', function () {
+window.addEventListener('DOMContentLoaded', function () {
 
     'use strick';
     let tabs = require('./parts/tabs.js'),
